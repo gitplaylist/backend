@@ -1,5 +1,8 @@
-
 # Created by https://www.gitignore.io/api/python
+
+
+# Front-end related
+/static/libs/
 
 # Mac-related
 .DS_Store
