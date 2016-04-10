@@ -7,7 +7,7 @@ from config import Config
 db = SQLAlchemy()
 api = Api()
 assets = Environment()
-scss = Bundle('scss/style.scss',filters='scss', output='css/app.css')
+scss = Bundle('scss/style.scss',filters='scss', output='gen/app.css')
 assets.register('scss', scss)
 
 
