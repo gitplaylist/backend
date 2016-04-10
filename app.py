@@ -2,19 +2,19 @@ from flask import Flask
 from flask_restful import Api, Resource
 from flask.ext.assets import Environment, Bundle
 from webassets.filter import register_filter
-from webassets_babel import BabelFilter
+from webassets_browserify import Browserify
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
+
+register_filter(Browserify)
 
 db = SQLAlchemy()
 api = Api()
 assets = Environment()
 
-scss = Bundle('scss/style.scss',filters='scss', output='gen/app.css')
-
-register_filter(BabelFilter)
-jsx = Bundle('jsx/app.jsx', filters='babel', output='gen/app.js')
+scss = Bundle('scss/style.scss', filters='scss', output='gen/app.css')
+jsx = Bundle('jsx/app.jsx', filters='browserify', output='gen/app.js')
 
 assets.register('scss', scss)
 assets.register('jsx', jsx)
