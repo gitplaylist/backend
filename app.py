@@ -10,7 +10,9 @@ assets.register('scss', scss)
 
 
 class HelloWorld(Resource):
-""" Hello world """
+    """
+     Hello world
+    """
 
     def get(self):
         return {'hello': 'world'}
