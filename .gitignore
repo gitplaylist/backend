@@ -1,6 +1,15 @@
 
 # Created by https://www.gitignore.io/api/python
 
+# Mac-related
+.DS_Store
+
+# Cache from webassets
+/static/.webassets-cache
+
+# Compiled CSS from SCSS
+/static/css/app.css
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
