@@ -1,4 +1,4 @@
-import React from '../libs/react';
+import react from '../libs/react';
 
 
-React.render("");
+React.render(<div>asdf</div>);
