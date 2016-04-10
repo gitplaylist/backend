@@ -14,7 +14,7 @@ api = Api()
 assets = Environment()
 
 scss = Bundle('scss/style.scss', filters='scss', output='gen/app.css')
-jsx = Bundle('jsx/app.jsx', filters='browserify', output='gen/app.js')
+jsx = Bundle('**/*.jsx', filters='browserify', output='gen/app.js')
 
 assets.register('scss', scss)
 assets.register('jsx', jsx)

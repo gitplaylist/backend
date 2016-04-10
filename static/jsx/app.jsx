@@ -1,4 +1,8 @@
-React.render(
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+
+ReactDOM.render(
     <div>
       <header>
         <div class="container flex-row-space-between">
