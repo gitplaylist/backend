@@ -6,9 +6,7 @@ app = Flask(__name__)
 api = Api(app)
 assets = Environment(app)
 
-scss = Bundle(
-    'scss/style.scss',
-    filters='scss', output='css/app.css')
+scss = Bundle('scss/style.scss',filters='scss', output='css/app.css')
 
 assets.register('scss', scss)
 
