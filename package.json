@@ -1,0 +1,19 @@
+{
+  "name": "gitplaylist",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimothyBest/gitplaylist.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TimothyBest/gitplaylist/issues"
+  },
+  "homepage": "https://github.com/TimothyBest/gitplaylist#readme",
+  "dependencies": {
+    "babel-cli": "^6.7.5",
+    "babel-plugin-transform-react-jsx": "^6.7.5"
+  }
+}

@@ -3,6 +3,7 @@
 
 # Front-end related
 /static/libs/
+node_modules
 
 # Mac-related
 .DS_Store
@@ -11,7 +12,10 @@
 /static/.webassets-cache
 
 # Compiled CSS from SCSS
-/static/css/app.css
+/static/gen/app.css
+
+# Compiled from Babel
+/static/gen/app.js
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
