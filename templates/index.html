@@ -1,4 +1,4 @@
-<!doctype html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="theme-color" content="#59B390"/>
     <title>gitPlaylist</title>
-    <link rel="shortcut icon" type="/image/x-icon" href="/images/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"/>
+    {% assets "scss" %}
+      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+    {% endassets %}
   </head>
   <body>
     <header>
