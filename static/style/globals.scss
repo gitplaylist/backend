@@ -1,0 +1,43 @@
+// We use these as default colors throughout
+$primary-color: #59B390 !default;
+$secondary-color: #F0DDAA !default;
+
+$alert-color: #E47C5D !default;
+$success-color: #59B390 !default;
+$warning-color: #E32D40 !default;
+$info-color: #318CAB !default;
+
+$base: #e6c670 !default;
+
+$white: #FFF !default;
+$ghost: lighten($base, 31%) !default;
+$snow: lighten($base, 30%) !default;
+$vapor: lighten($base, 29%) !default;
+$white-smoke: lighten($base, 28%) !default;
+$silver: lighten($base, 27%) !default;
+$smoke: lighten($base, 26%) !default;
+$gainsboro: lighten($base, 20%) !default;
+$iron: lighten($base, 13%) !default;
+//$base
+$aluminum: darken($base, 7%) !default;
+$jumbo: darken($base, 14%) !default;
+$monsoon: darken($base, 20%) !default;
+$steel: darken($base, 27%) !default;
+$charcoal: darken($base, 34%) !default;
+$tuatara: darken($base, 40%) !default;
+$oil: darken($base, 47%) !default;
+$jet: darken($base, 54%) !default;
+$black: #000 !default;
+
+// Fonts
+$font-family-sans-serif: 'Lato', Roboto, sans-serif;
+$font-family-serif: 'Libre Baskerville', Cambria, serif;
+$font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
+
+// We use these to control header font sizes
+$h1-font-size: 2.3rem;
+$h2-font-size: 1.8rem;
+$h3-font-size: 1.5rem;
+$h4-font-size: 1.27rem;
+$h5-font-size: 1.15rem;
+$h6-font-size: 1rem;

@@ -1,0 +1,70 @@
+header {
+  background-color: $primary-color;
+  margin-bottom: 20px;
+
+  a {
+    color: $white;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: $white;
+    }
+  }
+
+  nav {
+    align-self: center;
+
+    a {
+      text-transform: uppercase;
+    }
+  }
+}
+
+footer {
+  $github: #333;
+  $linkedin: #4875B4;
+  $stack-overflow: #fe7a15;
+
+  .flex-row-space-between {
+    margin: 18px 0;
+  }
+
+  a {
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+
+  .github {
+    color: $github;
+
+    &:hover,
+    &:focus {
+      color: darken($github, 20%);
+    }
+  }
+
+  .linkedin {
+    color: $linkedin;
+
+    &:hover,
+    &:focus {
+      color: darken($linkedin, 20%);
+    }
+  }
+
+  .stack-overflow {
+    color: $stack-overflow;
+
+    &:hover,
+    &:focus {
+      color: darken($stack-overflow, 15%);
+    }
+  }
+
+}
