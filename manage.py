@@ -1,14 +1,13 @@
 from flask.ext.script import Server, Manager, Shell
 from config import Config
-from app import app
+from app import create_app
 
+app = create_app()
 manager = Manager(app)
-
-from views.index import bp as index_bp
-app.register_blueprint(index_bp)
-
-from models.dummy import Dummy
-
+manager.add_command(
+    "runserver",
+    Server(host=Config.HOST, port=Config.PORT)
+)
 
 if __name__ == '__main__':
     manager.run()

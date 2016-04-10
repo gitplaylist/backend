@@ -4,11 +4,29 @@ from flask.ext.assets import Environment, Bundle
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
-
-app = Flask(__name__)
-db = SQLAlchemy(app)
-api = Api(app)
-assets = Environment(app)
+db = SQLAlchemy()
+api = Api()
+assets = Environment()
 scss = Bundle('scss/style.scss',filters='scss', output='css/app.css')
 assets.register('scss', scss)
-app.config.update(Config.__dict__)
+
+
+def create_app():
+    app = Flask(__name__)
+    app.config.update(Config.__dict__)
+
+    # Set up extensions
+    db.init_app(app)
+    app.db = db
+
+    api.init_app(app)
+    assets.init_app(app)
+
+    # Install views
+    from views.index import bp as index_bp
+    app.register_blueprint(index_bp)
+
+    # Install models
+    from models.dummy import Dummy
+
+    return app
