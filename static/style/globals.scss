@@ -7,7 +7,7 @@ $success-color: #59B390 !default;
 $warning-color: #E32D40 !default;
 $info-color: #318CAB !default;
 
-$base: #e6c670 !default;
+$base: #ababab !default;
 
 $white: #FFF !default;
 $ghost: lighten($base, 31%) !default;
@@ -30,9 +30,9 @@ $jet: darken($base, 54%) !default;
 $black: #000 !default;
 
 // Fonts
-$font-family-sans-serif: 'Lato', Roboto, sans-serif;
-$font-family-serif: 'Libre Baskerville', Cambria, serif;
-$font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
+$font-family-sans-serif: Roboto, sans-serif;
+$font-family-serif: Cambria, serif;
+$font-family-monospace: Courier, monospace;
 
 // We use these to control header font sizes
 $h1-font-size: 2.3rem;
