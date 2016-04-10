@@ -5,9 +5,7 @@ from flask.ext.assets import Environment, Bundle
 app = Flask(__name__)
 api = Api(app)
 assets = Environment(app)
-
 scss = Bundle('scss/style.scss',filters='scss', output='css/app.css')
-
 assets.register('scss', scss)
 
 
@@ -24,4 +22,3 @@ api.add_resource(HelloWorld, '/helloworld')
 
 if __name__ == '__main__':
     app.run(debug=True)
-
