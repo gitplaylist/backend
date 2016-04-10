@@ -29,4 +29,7 @@ def create_app():
     # Install models
     from models.dummy import Dummy
 
+    with app.app_context():
+        db.create_all()
+
     return app

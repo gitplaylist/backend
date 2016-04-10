@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from flask.ext.script import Server, Manager, Shell
 from config import Config
 from app import create_app
