@@ -1,15 +1,22 @@
 from flask import Flask
 from flask_restful import Api, Resource
 from flask.ext.assets import Environment, Bundle
+from webassets.filter import register_filter
+from webassets_babel import BabelFilter
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
 db = SQLAlchemy()
 api = Api()
 assets = Environment()
-scss = Bundle('scss/style.scss',filters='scss', output='gen/app.css')
-assets.register('scss', scss)
 
+scss = Bundle('scss/style.scss',filters='scss', output='gen/app.css')
+
+register_filter(BabelFilter)
+jsx = Bundle('jsx/app.jsx', filters='babel', output='gen/app.js')
+
+assets.register('scss', scss)
+assets.register('jsx', jsx)
 
 def create_app():
     app = Flask(__name__)
