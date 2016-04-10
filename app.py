@@ -27,4 +27,4 @@ def serve_app():
 api.add_resource(HelloWorld, '/helloworld')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=Config.HOST, port=Config.PORT, debug=Config.DEBUG)
