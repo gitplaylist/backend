@@ -6,6 +6,7 @@ from webassets_babel import BabelFilter
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
+
 db = SQLAlchemy()
 api = Api()
 assets = Environment()
@@ -34,7 +35,7 @@ def create_app():
     app.register_blueprint(index_bp)
 
     # Install models
-    from models.dummy import Dummy
+    from models.account import User
 
     with app.app_context():
         db.create_all()
