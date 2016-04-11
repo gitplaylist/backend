@@ -9,15 +9,15 @@ from config import Config
 
 register_filter(Browserify)
 
-DB = SQLAlchemy()
-API = Api()
-ASSETS = Environment()
+db = SQLAlchemy()
+api = Api()
+assets = Environment()
 
-SCSS = Bundle('scss/*.scss', 'scss/components/*.scss', filters='scss', output='gen/app.css')
-JSX = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js')
+scss = Bundle('scss/*.scss', 'scss/components/*.scss', filters='scss', output='gen/app.css')
+jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js')
 
-ASSETS.register('scss', SCSS)
-ASSETS.register('jsx', JSX)
+assets.register('scss', scss)
+assets.register('jsx', jsx)
 
 def create_app():
     """ Initializing the app """
@@ -25,11 +25,11 @@ def create_app():
     app.config.update(Config.__dict__)
 
     # Set up extensions
-    DB.init_app(app)
-    app.DB = DB
+    db.init_app(app)
+    app.db = db
 
-    API.init_app(app)
-    ASSETS.init_app(app)
+    api.init_app(app)
+    assets.init_app(app)
 
     # Install views
     from views.index import bp as index_bp
@@ -39,6 +39,6 @@ def create_app():
     from models.account import User
 
     with app.app_context():
-        DB.create_all()
+        db.create_all()
 
     return app

@@ -13,8 +13,8 @@ const App = React.createClass({
                 <a href="/">gitPlaylists</a>
               </h1>
               <nav className="material-tabs">
-                <a href="/">Login</a>
-                <a href="/">Sign up</a>
+                <a Link to="/about">Login</a>
+                <a Link to="/about">Sign up</a>
               </nav>
             </div>
           </header>

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from app import db, api
+from app import api
 from flask_restful import Resource
 
 bp = Blueprint('index', __name__)
