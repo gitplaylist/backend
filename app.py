@@ -9,26 +9,27 @@ from config import Config
 
 register_filter(Browserify)
 
-db = SQLAlchemy()
-api = Api()
-assets = Environment()
+DB = SQLAlchemy()
+API = Api()
+ASSETS = Environment()
 
-scss = Bundle('scss/*.scss', filters='scss', output='gen/app.css')
-jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js')
+SCSS = Bundle('scss/*.scss', 'scss/components/*.scss', filters='scss', output='gen/app.css')
+JSX = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js')
 
-assets.register('scss', scss)
-assets.register('jsx', jsx)
+ASSETS.register('scss', SCSS)
+ASSETS.register('jsx', JSX)
 
 def create_app():
+    """ Initializing the app """
     app = Flask(__name__)
     app.config.update(Config.__dict__)
 
     # Set up extensions
-    db.init_app(app)
-    app.db = db
+    DB.init_app(app)
+    app.DB = DB
 
-    api.init_app(app)
-    assets.init_app(app)
+    API.init_app(app)
+    ASSETS.init_app(app)
 
     # Install views
     from views.index import bp as index_bp
@@ -38,6 +39,6 @@ def create_app():
     from models.account import User
 
     with app.app_context():
-        db.create_all()
+        DB.create_all()
 
     return app

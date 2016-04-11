@@ -8,20 +8,20 @@ const App = React.createClass({
       return (
         <div>
           <header>
-            <div class="container flex-row-space-between">
+            <div className="container flex-row-space-between">
               <h1>
                 <a href="/">gitPlaylists</a>
               </h1>
-              <nav class="material-tabs">
+              <nav className="material-tabs">
                 <a href="/">Login</a>
                 <a href="/">Sign up</a>
               </nav>
             </div>
           </header>
           <main>
-            <div class="container">Hello world</div>
+            <div className="container">Hello world</div>
           </main>
-          <footer class="container">
+          <footer className="container">
             <hr/>
             <span>
               FOOTER
