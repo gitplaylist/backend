@@ -1,7 +1,5 @@
-import os
-
 from flask import Flask
-from flask_restful import Api, Resource
+from flask_restful import Api
 from flask.ext.assets import Environment, Bundle
 from webassets.filter import register_filter
 from webassets_browserify import Browserify
@@ -15,8 +13,11 @@ db = SQLAlchemy()
 api = Api()
 assets = Environment()
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-assets.from_yaml(os.path.join(APP_ROOT, 'static/assets.yml'))
+scss = Bundle('scss/*.scss', filters='scss', output='gen/app.css')
+jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js')
+
+assets.register('scss', scss)
+assets.register('jsx', jsx)
 
 def create_app():
     app = Flask(__name__)
