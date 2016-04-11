@@ -1,37 +1,45 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, Link } from 'react-router'
+import { render } from 'react-dom'
+import { Router, Route, Link, browserHistory } from 'react-router'
 
-const App = ReactDOM.createClass(
-    <div>
-      <header>
-        <div class="container flex-row-space-between">
-          <h1>
-            <a href="/">gitPlaylists</a>
-          </h1>
-          <nav class="material-tabs">
-            <a href="/">Login</a>
-            <a href="/">Sign up</a>
-          </nav>
-        </div>
-      </header>
-      <main>
-        <div class="container">Hello world</div>
-      </main>
-      <footer class="container">
-        <hr/>
-        <span>
-          FOOTER
-        </span>
-      </footer>
-    </div>,
-    document.getElementById("content")
-);
-const About = ReactDOM.createClass(
-    <div>      About
-    </div>,
-    document.getElementById("content")
-);
+
+const App = React.createClass({
+  render() {
+      return (
+        <div>
+          <header>
+            <div class="container flex-row-space-between">
+              <h1>
+                <a href="/">gitPlaylists</a>
+              </h1>
+              <nav class="material-tabs">
+                <a href="/">Login</a>
+                <a href="/">Sign up</a>
+              </nav>
+            </div>
+          </header>
+          <main>
+            <div class="container">Hello world</div>
+          </main>
+          <footer class="container">
+            <hr/>
+            <span>
+              FOOTER
+            </span>
+          </footer>
+        </div>,
+      )
+  }
+});
+
+const About = React.createClass({
+  render() {
+      return (
+        <div>About</div>,
+      )
+  }
+});
+
 const Users = React.createClass({
   render() {
     return (
@@ -65,17 +73,18 @@ const User = React.createClass({
     return (
       <div>
         <h2>{this.state.user.name}</h2>
-        {/* etc. */}
       </div>
     )
   }
 });
-const NoMatch = ReactDOM.createClass(
-    <div>
-      About
-    </div>,
-    document.getElementById("content")
-);
+
+const NoMatch = React.createClass({
+  render() {
+      return (
+        <div>404?</div>,
+      )
+  }
+});
 
 render((
   <Router history={browserHistory}>
@@ -87,4 +96,4 @@ render((
       <Route path="*" component={NoMatch}/>
     </Route>
   </Router>
-), document.body)
+), document.getElementById("content"))
