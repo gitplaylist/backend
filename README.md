@@ -10,7 +10,7 @@ $ ./manage.py runserver
 ```
 
 In project root directory run:
-'''
+```
 ln -s ../../hooks/pre-commit.sh .git/hooks/pre-commit
 sudo chmod +x .git/hooks/pre-commit
-'''
+```
