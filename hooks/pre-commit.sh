@@ -12,55 +12,48 @@ CHECKS = [
         'output': 'Checking for pdbs...',
         'command': 'grep -n "import pdb" %s',
         'ignore_files': ['.*pre-commit'],
-        'print_filename': True,
     },
     {
         'output': 'Checking for ipdbs...',
         'command': 'grep -n "import ipdb" %s',
         'ignore_files': ['.*pre-commit'],
-        'print_filename': True,
     },
     {
         'output': 'Checking for print statements...',
         'command': 'grep -n print %s',
         'match_files': [r'.*\.py$'],
         'ignore_files': ['.*migrations.*', '.*management/commands.*', '.*manage.py', '.*/scripts/.*'],
-        'print_filename': True,
     },
     {
         'output': 'Checking for console.log()...',
         'command': 'grep -n console.log %s',
         'match_files': [r'.*yipit/.*\.js$'],
-        'print_filename': True,
     },
     {
         'output': 'Checking for debugger...',
         'command': 'grep -n debugger %s',
         'match_files': [r'.*\.js$'],
-        'print_filename': True,
     },
     {
        'output': 'Running Jshint...',
        # By default, jshint prints 'Lint Free!' upon success. We want to filter this out.
        'command': 'jshint %s | grep -v "Lint Free!"',
        'match_files': [r'.*yipit/.*\.js$'],
-       'print_filename': False,
     },
     {
         'output': 'Running pylint...',
-        'command': r'pylint --output-format=colorized -- %(file)s',
+        'command': r'pylint --output-format=colorized --reports=no -- %s',
         'match_files': [r'.*\.py$'],
     },
     {
         'output': 'Running htmlhint...',
-        'command': r'htmlhint  -- %(file)s',
+        'command': r'htmlhint  -- %s',
         'match_files': [r'.*\.py$'],
     },
     {
         'output': 'Running sass-lint...',
         'command': 'sass-lint %s',
         'match_files': [r'.*\.scss$'],
-        'print_filename': True,
     },
 ]
 
@@ -78,7 +71,7 @@ def check_files(files, check):
                 process = subprocess.Popen(check['command'] % file_name, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
                 out, err = process.communicate()
                 if out or err:
-                    if check['print_filename']:
+                    if check.get('print_filename', True):
                         prefix = '\t%s:' % file_name
                     else:
                         prefix = '\t'
