@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api, Resource
 from flask.ext.assets import Environment, Bundle
@@ -13,11 +15,8 @@ db = SQLAlchemy()
 api = Api()
 assets = Environment()
 
-scss = Bundle('scss/style.scss', filters='scss', output='gen/app.css')
-jsx = Bundle('**/*.jsx', filters='browserify', output='gen/app.js')
-
-assets.register('scss', scss)
-assets.register('jsx', jsx)
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+assets.from_yaml(os.path.join(APP_ROOT, 'static/assets.yml'))
 
 def create_app():
     app = Flask(__name__)
