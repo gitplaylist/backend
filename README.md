@@ -3,6 +3,7 @@
 ```bash
 $ sudo gem install sass
 $ sudo npm install -g browserify babel-cli babelify
+$ sudo npm install -g react-router
 $ sudo npm install -g htmlhint sass-lint jshint
 $ npm install
 $ pip install -r requirements.txt
