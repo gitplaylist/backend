@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
 
 
-const App = React.createClass({
+class App extends React.Component {
   render() {
       return (
         <div>
@@ -30,17 +30,17 @@ const App = React.createClass({
         </div>,
       )
   }
-});
+}
 
-const About = React.createClass({
+class AboutView extends React.Component {
   render() {
       return (
         <div>About</div>,
       )
   }
-});
+}
 
-const Users = React.createClass({
+class UserListView extends React.Component {
   render() {
     return (
       <div>
@@ -59,15 +59,15 @@ const Users = React.createClass({
       </div>
     )
   }
-});
+}
 
-const User = React.createClass({
+class UserView extends React.Component {
   componentDidMount() {
     this.setState({
       // route components are rendered with useful information, like URL params
       user: findUserById(this.props.params.userId)
     })
-  },
+  }
 
   render() {
     return (
@@ -76,24 +76,24 @@ const User = React.createClass({
       </div>
     )
   }
-});
+}
 
-const NoMatch = React.createClass({
+class NoMatchView extends React.Component {
   render() {
       return (
         <div>404?</div>,
       )
   }
-});
+}
 
 render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <Route path="about" component={About}/>
-      <Route path="users" component={Users}>
-        <Route path="/user/:userId" component={User}/>
+      <Route path="about" component={AboutView}/>
+      <Route path="users" component={UserListView}>
+        <Route path="/user/:userId" component={UserView}/>
       </Route>
-      <Route path="*" component={NoMatch}/>
+      <Route path="*" component={NoMatchView}/>
     </Route>
   </Router>
 ), document.getElementById("content"))
