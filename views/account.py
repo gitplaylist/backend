@@ -3,6 +3,7 @@ from models.account import User
 
 from flask_restful import fields, marshal_with, reqparse, Resource
 
+
 def email(email_str):
     """Return email_str if valid, raise an exception in other case."""
     return email_str
