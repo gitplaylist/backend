@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom'
-import { Router, Route, Link, browserHistory } from 'react-router'
+import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
 
 
 class App extends React.Component {
@@ -10,16 +10,16 @@ class App extends React.Component {
           <header>
             <div className="container flex-row-space-between">
               <h1>
-                <a href="/">gitPlaylists</a>
+                <Link to="/">gitPlaylists</Link>
               </h1>
               <nav className="material-tabs">
-                <a Link to="/about">Login</a>
-                <a Link to="/about">Sign up</a>
+                <Link to="/about">Login</Link>
+                <Link to="/about">Sign up</Link>
               </nav>
             </div>
           </header>
           <main>
-            <div className="container">Hello world</div>
+            {this.props.children}
           </main>
           <footer className="container">
             <hr/>
@@ -27,18 +27,28 @@ class App extends React.Component {
               FOOTER
             </span>
           </footer>
-        </div>,
+        </div>
       )
   }
 }
 
+class IndexView extends React.Component {
+  render() {
+    return (
+      <div>Index</div>
+    );
+  }
+}
+
+
 class AboutView extends React.Component {
   render() {
       return (
-        <div>About</div>,
+        <div>About</div>
       )
   }
 }
+
 
 class UserListView extends React.Component {
   render() {
@@ -61,6 +71,7 @@ class UserListView extends React.Component {
   }
 }
 
+
 class UserView extends React.Component {
   componentDidMount() {
     this.setState({
@@ -78,22 +89,22 @@ class UserView extends React.Component {
   }
 }
 
+
 class NoMatchView extends React.Component {
   render() {
       return (
-        <div>404?</div>,
+        <div>404?</div>
       )
   }
 }
 
-render((
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <Route path="about" component={AboutView}/>
-      <Route path="users" component={UserListView}>
-        <Route path="/user/:userId" component={UserView}/>
-      </Route>
-      <Route path="*" component={NoMatchView}/>
-    </Route>
-  </Router>
-), document.getElementById("content"))
+
+const router =(<Router history={browserHistory}>
+  <Route path="/" component={App}>
+    <IndexRoute component={IndexView} />
+    <Route path="about" component={AboutView} />
+    <Route path="*" component={NoMatchView} />
+  </Route>
+</Router>);
+
+render(router, document.getElementById("content"));
