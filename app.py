@@ -30,6 +30,7 @@ def create_app():
     # Set up extensions
     db.init_app(app)
     app.db = db
+    migrate = Migrate(app, db)
 
     api.init_app(app)
     assets.init_app(app)
