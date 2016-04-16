@@ -41,7 +41,7 @@ CHECKS = [
     },
     {
         'output': 'Running htmlhint...',
-        'command': r'htmlhint  -- %s',
+        'command': r'htmlhint --config .htmlhintrc %s',
         'match_files': [r'.*\.html$'],
     },
     {
