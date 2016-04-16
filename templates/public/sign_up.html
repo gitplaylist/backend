@@ -1,7 +1,15 @@
 {% extends 'public/index.html' %}
 
+
 {% block content %}
 <div class="container">
-  sign up
+  <h3>Sign up</h3>
+  <form action="login">
+    <label for="email">Email</label>
+    <input type="text" name="email"/>
+    <label for="password">Password</label>
+    <input type="password" name="password"/>
+    <input type="submit"/>
+  </form>
 </div>
 {% endblock %}
