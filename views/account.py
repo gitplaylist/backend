@@ -1,7 +1,7 @@
+from flask_restful import Resource, fields, marshal_with, reqparse
+
 from app import api
 from models.account import User
-
-from flask_restful import fields, marshal_with, reqparse, Resource
 
 
 def email(email_str):
