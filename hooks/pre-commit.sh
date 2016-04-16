@@ -42,7 +42,7 @@ CHECKS = [
     {
         'output': 'Running htmlhint...',
         'command': r'htmlhint  -- %s',
-        'match_files': [r'.*\.py$'],
+        'match_files': [r'.*\.html$'],
     },
     {
         'output': 'Running sass-lint...',
