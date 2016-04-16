@@ -33,7 +33,9 @@ def create_app():
 
     # Install views
     from views.index import bp as index_bp
+    from views.public import bp as public_bp
     app.register_blueprint(index_bp)
+    app.register_blueprint(public_bp)
 
     # Install models
     from models.account import User

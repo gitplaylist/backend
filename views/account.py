@@ -14,7 +14,7 @@ def email(email_str):
 post_parser = reqparse.RequestParser()
 post_parser.add_argument(
     'username', dest='username',
-    location='form', equired=True,
+    location='form', required=True,
     help='The user\'s username',
 )
 post_parser.add_argument(

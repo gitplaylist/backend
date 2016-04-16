@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#59B390"/>
+    <title>gitPlaylist</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css"/>
+    {% assets "scss" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+  </head>
+  <body>
+    <header>
+      <div class="container flex-row-space-between">
+        <h1>
+          <a href="/">gitPlaylists</a>
+        </h1>
+        <nav class="material-tabs">
+          <a href="/login">Login</a>
+          <a href="/sign_up">Sign up</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      {% block content %}
+        <div class="container">
+          HOMEPAGE
+        </div>
+      {% endblock %}
+    </main>
+    <footer class="container">
+      <hr/>
+      <span>
+        FOOTER
+      </span>
+    </footer>
+  </body>
+</html>
