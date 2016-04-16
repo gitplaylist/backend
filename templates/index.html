@@ -9,13 +9,13 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css"/>
     {% assets "scss" %}
-      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"/>
     {% endassets %}
   </head>
   <body>
     <div id="content"></div>
     {% assets "jsx" %}
-      <script src="{{ ASSET_URL }}" type="text/javascript"></script>
+    <script src="{{ ASSET_URL }}" type="text/javascript"></script>
     {% endassets %}
   </body>
 </html>
