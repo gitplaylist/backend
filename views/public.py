@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template
 from flask.views import MethodView
 
+from models.account import User
+
 
 bp = Blueprint('public', __name__)
 
@@ -15,7 +17,7 @@ class Signup(MethodView):
         return render_template(self.template)
 
     def post(self):
-        form = ''
+        # user = User(args.username, args.email)
         return render_template(self.template)
 
 bp.add_url_rule('/sign_up', view_func=Signup.as_view('sign_up'))
