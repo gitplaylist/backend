@@ -19,12 +19,6 @@ CHECKS = [
         'ignore_files': ['.*pre-commit'],
     },
     {
-        'output': 'Checking for print statements...',
-        'command': 'grep -n print %s',
-        'match_files': [r'.*\.py$'],
-        'ignore_files': ['.*migrations.*', '.*management/commands.*', '.*manage.py', '.*/scripts/.*'],
-    },
-    {
         'output': 'Checking for console.log()...',
         'command': 'grep -n console.log %s',
         'match_files': [r'.*yipit/.*\.js$'],
