@@ -5,6 +5,7 @@ colorama==0.3.7
 enum34==1.1.2
 Flask==0.10.1
 Flask-Assets==0.11
+Flask-Login==0.3.2
 Flask-Migrate==1.8.0
 Flask-Passlib==0.1
 Flask-RESTful==0.3.5

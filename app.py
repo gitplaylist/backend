@@ -4,6 +4,7 @@ from flask.ext.assets import Environment, Bundle
 from webassets.filter import register_filter
 from webassets_browserify import Browserify
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from config import Config
 
 
@@ -12,6 +13,7 @@ register_filter(Browserify)
 db = SQLAlchemy()
 api = Api()
 assets = Environment()
+login_manager = LoginManager()
 
 scss = Bundle('scss/*.scss', 'scss/components/*.scss', filters='scss', output='gen/app.css')
 jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js', depends='jsx/**/*.jsx')
@@ -30,6 +32,7 @@ def create_app():
 
     api.init_app(app)
     assets.init_app(app)
+    login_manager.init_app(app)
 
     # Install views
     from views.app import bp as app_bp
