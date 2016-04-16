@@ -1,9 +1,8 @@
-from flask import Blueprint, render_template
-from flask import request, session
+from flask import Blueprint, render_template, request
 from flask.views import MethodView
+from flask_login import login_user
 
 from models.account import User
-
 
 bp = Blueprint('public', __name__)
 
@@ -22,6 +21,9 @@ class Signup(MethodView):
             request.form.get('email'),
             request.form.get('password'),
         )
+        # db.session.add(user)
+        # db.session.commit()
+        login_user(user)
         return render_template(self.template)
 
 bp.add_url_rule('/sign_up', view_func=Signup.as_view('sign_up'))
@@ -34,7 +36,9 @@ class Login(MethodView):
         return render_template(self.template)
 
     def post(self):
-        form = ''
+        user = User.query.get(email=request.form.get('email'))
+        if user.verify_password(request.form.get('password')):
+            login_user(user)
         return render_template(self.template)
 
 bp.add_url_rule('/login', view_func=Login.as_view('login'))
