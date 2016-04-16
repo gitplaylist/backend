@@ -5,7 +5,8 @@ from flask_restful import Resource
 bp = Blueprint('index', __name__)
 
 @bp.route('/')
-def serve_app():
+@bp.route('/<path:path>')
+def serve_app(path=None):
     return render_template('index.html')
 
 
