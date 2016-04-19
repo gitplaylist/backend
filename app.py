@@ -45,7 +45,4 @@ def create_app():
     # Install models
     from models.account import User
 
-    with app.app_context():
-        db.create_all()
-
     return app
