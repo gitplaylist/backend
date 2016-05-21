@@ -4,7 +4,7 @@
 from config import Config
 
 from flask.ext.script import Manager, Server, Shell
-from flask_migrate import MigrateCommand
+from flask_migrate import Migrate, MigrateCommand
 
 from app import create_app
 
