@@ -1,7 +1,9 @@
+from __future__ import absolute_import
 from flask import Blueprint, render_template, request
 from flask.views import MethodView
 from flask_login import login_user
 
+from app import db
 from models.account import User
 
 bp = Blueprint('public', __name__)
@@ -21,8 +23,8 @@ class Signup(MethodView):
             request.form.get('email'),
             request.form.get('password'),
         )
-        # db.session.add(user)
-        # db.session.commit()
+        db.session.add(user)
+        db.session.commit()
         login_user(user)
         return render_template(self.template)
 
@@ -36,7 +38,8 @@ class Login(MethodView):
         return render_template(self.template)
 
     def post(self):
-        user = User.query.get(email=request.form.get('email'))
+        user = User.query.filter(User.email == request.form.get('email')).first()
+        print user
         if user.verify_password(request.form.get('password')):
             login_user(user)
         return render_template(self.template)
