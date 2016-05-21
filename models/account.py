@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
         self.password_hash = self.hash_password(password)
 
     def __repr__(self):
-        return '<User %r>' % (self.username)
+        return '<User %r>' % (self.email)
 
     def hash_password(self, password):
         return pwd_context.encrypt(password)
