@@ -39,7 +39,6 @@ class Login(MethodView):
 
     def post(self):
         user = User.query.filter(User.email == request.form.get('email')).first()
-        print user
         if user.verify_password(request.form.get('password')):
             login_user(user)
         return render_template(self.template)

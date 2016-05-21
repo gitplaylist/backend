@@ -58,7 +58,7 @@ def matches_file(file_name, match_files):
 
 def check_files(files, check):
     result = 0
-    print check['output']
+    print(check['output'])
     for file_name in files:
         if not 'match_files' in check or matches_file(file_name, check['match_files']):
             if not 'ignore_files' in check or not matches_file(file_name, check['ignore_files']):
@@ -70,9 +70,9 @@ def check_files(files, check):
                     else:
                         prefix = '\t'
                     output_lines = ['%s%s' % (prefix, line) for line in out.splitlines()]
-                    print '\n'.join(output_lines)
+                    print('\n'.join(output_lines))
                     if err:
-                        print err
+                        print(err)
                     result = 1
     return result
 
@@ -90,7 +90,7 @@ def main(all_files):
         p = subprocess.Popen(['git', 'status', '--porcelain'], stdout=subprocess.PIPE)
         out, _ = p.communicate()
         for line in out.splitlines():
-            match = MODIFIED.match(line)
+            match = MODIFIED.match(line.decode('utf-8'))
             if match:
                 files.append(match.group('name'))
 
