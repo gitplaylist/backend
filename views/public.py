@@ -1,15 +1,18 @@
 from __future__ import absolute_import
 from flask import Blueprint, render_template, request
 from flask.views import MethodView
-from flask_login import login_user
+from flask_login import login_user, current_user
 
 from app import db
 from models.account import User
 
 bp = Blueprint('public', __name__)
 
+
 @bp.route('/')
 def index():
+    if current_user.is_authenticated:
+        return render_template('app.html')
     return render_template('public/index.html')
 
 class Signup(MethodView):
