@@ -1,6 +1,7 @@
 from passlib.apps import custom_app_context as pwd_context
 
 from flask_login import UserMixin
+from flask_validator import ValidateEmail
 
 from app import db, login_manager
 
@@ -26,6 +27,10 @@ class User(db.Model, UserMixin):
 
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
+
+    @classmethod
+    def __declare_last__(cls):
+        ValidateEmail(User.email)
 
 @login_manager.user_loader
 def load_user(user_id):
