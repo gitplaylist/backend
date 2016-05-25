@@ -19,6 +19,6 @@ dependencies:
 
 test:
   override:
-    - behave
+    - coverage run --source='.' -m behave
   post:
     - bash <(curl -s https://codecov.io/bash)
