@@ -24,7 +24,6 @@ Mako==1.0.4
 MarkupSafe==0.23
 passlib==1.6.1
 pathlib==1.0.1
-pkg-resources==0.0.0
 psycopg2==2.6.1
 py-moneyed==0.6.0
 pylint==1.5.5

@@ -1,0 +1,22 @@
+machine:
+  timezone:
+    America/Los_Angeles
+  python:
+    version:
+      3.5.1
+  environment:
+    ENV: testing
+
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+
+dependencies:
+  pre:
+    - npm install 
+    - pip install -r requirements.txt
+
+test:
+  override:
+    - behave
