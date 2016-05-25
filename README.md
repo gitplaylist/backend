@@ -1,6 +1,7 @@
 # gitplaylist
 
 [![CircleCI](https://circleci.com/gh/gitplaylist/gitplaylist.svg?style=svg)](https://circleci.com/gh/gitplaylist/gitplaylist)
+[![codecov](https://codecov.io/gh/gitplaylist/gitplaylist/branch/master/graph/badge.svg)](https://codecov.io/gh/gitplaylist/gitplaylist)
 
 
 ## Setup
