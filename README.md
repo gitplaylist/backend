@@ -1,5 +1,7 @@
 # gitplaylist
 
+[![CircleCI](https://circleci.com/gh/TimothyBest/gitplaylist.svg?style=svg)](https://circleci.com/gh/TimothyBest/gitplaylist)
+
 ```bash
 $ sudo gem install sass
 $ sudo npm install -g browserify babel-cli babelify
