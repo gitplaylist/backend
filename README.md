@@ -18,5 +18,5 @@ ln -s ../../hooks/pre-commit.sh .git/hooks/pre-commit
 sudo chmod +x .git/hooks/pre-commit
 ```
 
-## Project Managment
+## Project Management
 [Trello Organization](https://trello.com/gitplaylist)
