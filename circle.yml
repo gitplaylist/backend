@@ -13,7 +13,7 @@ checkout:
     - git submodule update --recursive --init
 
 dependencies:
-  pre:
+  override:
     - npm install 
     - pip install -r requirements.txt
 

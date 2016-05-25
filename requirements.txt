@@ -39,3 +39,4 @@ webassets-babel==0.3.0
 webassets-browserify==1.1.0
 Werkzeug==0.11.5
 wrapt==1.10.7
+behave==1.2.5
