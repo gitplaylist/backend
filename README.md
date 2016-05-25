@@ -1,6 +1,6 @@
 # gitplaylist
 
-[![CircleCI](https://circleci.com/gh/TimothyBest/gitplaylist.svg?style=svg)](https://circleci.com/gh/TimothyBest/gitplaylist)
+[![CircleCI](https://circleci.com/gh/gitplaylist/gitplaylist.svg?style=svg)](https://circleci.com/gh/gitplaylist/gitplaylist)
 
 
 ## Setup
