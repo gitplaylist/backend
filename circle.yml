@@ -14,9 +14,11 @@ checkout:
 
 dependencies:
   override:
-    - npm install 
+    - npm install
     - pip install -r requirements.txt
 
 test:
   override:
     - behave
+  post:
+    - bash <(curl -s https://codecov.io/bash)
