@@ -36,7 +36,7 @@ CHECKS = [
     },
     {
         'output': 'Running pylint...',
-        'command': r'pylint --output-format=colorized --reports=no --disable=C --load-plugins=pylint_flask -- %s',
+        'command': r'pylint --output-format=colorized --reports=no --disable=C -- %s',
         'match_files': [r'.*\.py$'],
     },
     {
