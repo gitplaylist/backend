@@ -1,14 +1,25 @@
+"""Define the behavior of sign up."""
+from behave import given, then, when
+
+from models.account import User
+
+
 @given(u'the user just put the email and the password.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given the user just put the email and the password.')
+    context.email = 'tim+stewart@gmail.com'
+    context.password = 'test1'
 
 @when(u'the user clicked the sign up button.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When the user clicked the sign up button.')
+    context.client.post('/sign_up', data={
+        "email": context.email,
+        "password": context.password,
+    })
 
 @then(u'we should create an account for the user with the designated email.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then we should create an account for the user with the designated email.')
+    with context.app.app_context():
+        assert User.query.filter(User.email == context.email).first() is not None
 
 @given(u'the user just clicked the sign up button with Github account signed in.')
 def step_impl(context):

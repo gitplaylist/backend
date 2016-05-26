@@ -1,3 +1,6 @@
+from behave import given, when, then
+
+
 @given(u'the user just put the email and the password')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Given the user just put the email and the password')
