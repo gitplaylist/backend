@@ -1,0 +1,87 @@
+@import 'globals';
+
+html {
+  font-family: $font-family-sans-serif;
+}
+
+body {
+  background-color: $white;
+  color: $jet;
+}
+
+a {
+  color: $info-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: $info-color;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-serif;
+  font-weight: normal;
+  line-height: 1.5;
+  margin: 0;
+
+  a {
+    color: inherit;
+
+    &:visited {
+      color: inherit;
+    }
+  }
+}
+
+h1 {
+  font-size: $h1-font-size;
+}
+
+h2 {
+  font-size: $h2-font-size;
+}
+
+h3 {
+  font-size: $h3-font-size;
+}
+
+h4 {
+  font-size: $h4-font-size;
+}
+
+h5 {
+  font-size: $h5-font-size;
+}
+
+h6 {
+  font-size: $h6-font-size;
+}
+
+hr {
+  border: 0;
+  border-top: $secondary-color 1px solid;
+}
+
+p {
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+ul {
+  margin: 0;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  padding: 0;
+  padding-left: 1rem;
+
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}

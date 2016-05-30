@@ -16,7 +16,7 @@ api = Api()
 assets = Environment()
 login_manager = LoginManager()
 
-scss = Bundle('brand/scss/*.scss', 'scss/components/*.scss', filters='scss', output='gen/app.css')
+scss = Bundle('scss/*.scss', 'scss/components/*.scss', filters='scss', output='gen/app.css')
 jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js', depends='jsx/**/*.jsx')
 
 assets.register('scss', scss)

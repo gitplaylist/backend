@@ -1,0 +1,23 @@
+@import 'globals';
+
+header {
+  background-color: $primary-color;
+  margin-bottom: 20px;
+
+  a {
+    color: $white;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: $white;
+    }
+  }
+
+  nav {
+    align-self: center;
+  }
+}
