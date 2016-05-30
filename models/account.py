@@ -1,3 +1,4 @@
+from collections import defaultdict
 from passlib.apps import custom_app_context as pwd_context
 
 from flask_login import UserMixin
@@ -29,10 +30,16 @@ class User(db.Model, UserMixin):
 
     @classmethod
     def __declare_last__(cls):
+        errors = defaultdict(list)
+
         if ValidateEmail(User.email):
-            raise ValidateError("{email:'invalid email'}")
+            errors['email'] = 'invalid email'
         if ValidateLength(User.password_hash, min_length=8, max_length=128):
-            raise ValidateError("{password:'invalid password length'}")
+            errors['password'] = 'invalid password length'
+
+        if errors:
+            raise ValidateError(errors)
+
 
 @login_manager.user_loader
 def load_user(user_id):
