@@ -7,7 +7,7 @@ from models.account import User
 @given(u'the user just put the email and the password.')
 def step_impl(context):
     context.email = 'tim+stewart@gmail.com'
-    context.password = 'test1'
+    context.password = 'stewartthis1isnotasecurepassword'
 
 @when(u'the user clicked the sign up button.')
 def step_impl(context):
