@@ -1,6 +1,3 @@
 [submodule "config"]
 	path = config
 	url = git@bitbucket.org:writegracelee/gitplaylist-settings.git
-[submodule "static/brand"]
-	path = static/brand
-	url = https://github.com/gitplaylist/brand
