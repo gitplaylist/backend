@@ -38,7 +38,7 @@ class UserResource(Resource):
     @marshal_with(user_fields)
     def post(self):
         args = post_parser.parse_args()
-        user = User(args.username, args.email)
+        user = User(args.eamil, args.password)
         return user
 
     @marshal_with(user_fields)
