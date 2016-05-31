@@ -1,17 +1,30 @@
 from behave import given, when, then
 
+from app import db
+from models.account import User
+
 
 @given(u'the user entered the email and the password')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given the user just put the email and the password')
+    context.email = 'login@example.com'
+    context.password = 'stewartthis1isnotasecurepassword'
+
+    user = User('login@gmail.com', 'stewartthis1isnotasecurepassword')
+    db.session.add(user)
+    db.session.commit()
 
 @when(u'the user clicked the log in button')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When the user clicked the log in button')
+    context.client.post('/login', data={
+        "email": context.email,
+        "password": context.password,
+    })
 
 @then(u'we should log the user in with a proper session value populated')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then we should log the user in with a proper session value populated')
+    with context.app.app_context():
+        user = User.query.filter(User.email == context.email).first()
+        assert user.is_authenticated()
 
 @given(u'the user is already signed up previously')
 def step_impl(context):
