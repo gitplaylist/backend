@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask.views import MethodView
 from flask_login import login_user, current_user, logout_user
+from flask_validator import ValidateError
 
 from app import db
 from models.account import User
@@ -22,15 +23,20 @@ class Signup(MethodView):
         return render_template(self.template)
 
     def post(self):
-        user = User(
-            request.form.get('email'),
-            request.form.get('password'),
-        )
+        try:
+            user = User(
+                request.form.get('email'),
+                request.form.get('password'),
+            )
+        except ValidateError as errors:
+            return render_template(self.template, errors=errors)
+
         db.session.add(user)
         db.session.commit()
+
         login_user(user)
+
         return redirect(url_for('public.index'))
-        return render_template(self.template)
 
 bp.add_url_rule('/sign_up', view_func=Signup.as_view('sign_up'))
 

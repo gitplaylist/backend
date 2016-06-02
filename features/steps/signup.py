@@ -4,10 +4,10 @@ from behave import given, then, when
 from models.account import User
 
 
-@given(u'the user just put the email and the password.')
+@given(u'the user entered an email and password.')
 def step_impl(context):
-    context.email = 'tim+stewart@gmail.com'
-    context.password = 'test1'
+    context.email = 'sign.up@example.com'
+    context.password = 'stewartthis1isnotasecurepassword'
 
 @when(u'the user clicked the sign up button.')
 def step_impl(context):
@@ -21,7 +21,7 @@ def step_impl(context):
     with context.app.app_context():
         assert User.query.filter(User.email == context.email).first() is not None
 
-@given(u'the user just clicked the sign up button with Github account signed in.')
+@given(u'the user clicked the Github sign up button with Github account signed in.')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Given the user just clicked the sign up button with Github account signed in.')
 
