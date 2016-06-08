@@ -1,6 +1,8 @@
 """Define context before any tests run."""
 import os
 
+from app import create_app, db
+
 
 def before_all(context):
     """Create the context bag."""
@@ -9,7 +11,7 @@ def before_all(context):
 
     # Import this now because the environment variable
     # should be changed before this happens.
-    from app import create_app, db
+
     context.app = create_app()
 
     # Create all the tables in memory.
@@ -22,3 +24,6 @@ def before_all(context):
 
 def after_all(context):
     """Destroy the context bag."""
+    with context.app.app_context():
+        db.reflect()
+        db.drop_all()
