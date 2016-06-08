@@ -109,3 +109,6 @@ ENV/
 
 # Vim-related
 *.swp
+
+# Test report
+reports/
