@@ -1,4 +1,4 @@
-Feature: Log In
+Feature: Login
     Users should be able to login to our service if they have an account on our system.
 
     Scenario: User logged in with an email and a password
