@@ -8,9 +8,9 @@ from sqlalchemy.sql import func
 
 
 class GithubAccessToken(db.Model):
-    __tablename__ = 'github_accesstokens'
+    __tablename__ = 'github_accesstoken'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship("User")
 
     token_type = db.Column(db.String(16))
@@ -36,7 +36,7 @@ class GithubAccessToken(db.Model):
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(32), unique=True)
     password_hash = db.Column(db.String(128))
