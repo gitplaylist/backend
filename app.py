@@ -6,6 +6,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from webassets.filter import register_filter
 from webassets_browserify import Browserify
+from flask_oauthlib.client import OAuth
 
 from config import Config
 
@@ -15,6 +16,24 @@ db = SQLAlchemy()
 api = Api()
 assets = Environment()
 login_manager = LoginManager()
+oauth = OAuth()
+
+github = oauth.remote_app(
+    'Github OAuth',
+    base_url="https://api.github.com/",
+    access_token_url="https://github.com/login/oauth/access_token",
+    authorize_url="https://github.com/login/oauth/authorize",
+    consumer_key=Config.GITHUB_CLIENT_ID,
+    consumer_secret=Config.GITHUB_CLIENT_SECRET,
+)
+def change_github_header(uri, headers, body):
+    auth = headers.get('Authorization')
+    if auth:
+        auth = auth.replace('Bearer', 'token')
+        headers['Authorization'] = auth
+    return uri, headers, body
+
+github.pre_request = change_github_header
 
 scss = Bundle('scss/*.scss', 'scss/components/*.scss', filters='scss', output='gen/app.css')
 jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js', depends='jsx/**/*.jsx')
@@ -39,8 +58,10 @@ def create_app():
     # Install views
     from views.app import bp as app_bp
     from views.public import bp as public_bp
+    from views.oauth import bp as oauth_bp
     app.register_blueprint(app_bp)
     app.register_blueprint(public_bp)
+    app.register_blueprint(oauth_bp)
 
     # Install models
     from models.account import User
