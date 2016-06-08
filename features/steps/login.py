@@ -9,11 +9,13 @@ def step_impl(context):
     context.email = 'login@example.com'
     context.password = 'stewartthis1isnotasecurepassword'
 
-    context.client.post('/sign_up', data={
-        "email": context.email,
-        "password": context.password,
-    })
-
+    with context.app.app_context():
+        user = User(
+            email=context.email,
+            password=context.email,
+        )
+        db.session.add(user)
+        db.session.commit()
 
 @when(u'the user clicked the log in button')
 def step_impl(context):
@@ -30,12 +32,17 @@ def step_impl(context):
 
 @given(u'the user is already signed up previously')
 def step_impl(context):
-    context.email = 'login@example.com'
+    context.email = 'login+1@example.com'
     context.password = 'stewartthis1isnotasecurepassword'
 
-    user = User(context.email, context.password)
-    db.session.add(user)
-    db.session.commit()
+    with context.app.app_context():
+        user = User(
+            email=context.email,
+            password=context.email,
+        )
+        db.session.add(user)
+        db.session.commit()
+
 
 @when(u'the user clicked the Github single sign-on button')
 def step_impl(context):

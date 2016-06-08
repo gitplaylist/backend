@@ -32,10 +32,10 @@ class User(db.Model, UserMixin):
     def __declare_last__(cls):
         errors = defaultdict(list)
 
-        if ValidateEmail(User.email):
-            errors['email'] = 'invalid email'
-        if ValidateLength(User.password_hash, min_length=8, max_length=128):
-            errors['password'] = 'invalid password length'
+        # if ValidateEmail(User.email):
+        #     errors['email'] = 'invalid email'
+        # if ValidateLength(User.password_hash, min_length=8, max_length=128):
+        #     errors['password'] = 'invalid password length'
 
         if errors:
             raise ValidateError(errors)
