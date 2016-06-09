@@ -1,7 +1,10 @@
-from behave import given, when, then
+from unittest.mock import MagicMock, Mock, patch
 
 from app import db
-from models.account import User
+from behave import given, then, when
+from flask_login import current_user
+from models.account import GithubAccessToken, User
+from views.oauth import github_oauth_handler
 
 
 @given(u'the user entered the email and the password')
@@ -34,20 +37,45 @@ def step_impl(context):
 def step_impl(context):
     context.email = 'login+1@example.com'
     context.password = 'stewartthis1isnotasecurepassword'
+    context.access_token = 'existing-token'
+    context.scope = ''
+    context.token_type = 'bearer'
 
     with context.app.app_context():
-        user = User(
+        context.user = User(
             email=context.email,
             password=context.email,
         )
-        db.session.add(user)
+        db.session.add(context.user)
+        db.session.commit()
+        context.token = GithubAccessToken(
+            context.user.id, context.token_type, context.scope, context.access_token
+        )
+        db.session.add(context.token)
         db.session.commit()
 
 
 @when(u'the user clicked the Github single sign-on button')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When the user just clicked the Github SSO button')
+    github_user_me = MagicMock()
+    github_user_me.data = {"email": context.email}
+    github_get = Mock(return_value=github_user_me)
+    github_authorized_response = Mock(return_value={
+        "access_token": context.access_token,
+        "scope": context.scope,
+        "token_type": context.token_type,
+    })
+    with patch('app.github.get', github_get),\
+        patch('app.github.authorized_response', github_authorized_response),\
+        context.app.test_request_context(
+            '/callback/github?code=something'
+        ):
+            res = github_oauth_handler()
+    assert res.status_code == 302
+    assert res.headers['Location'].endswith("/")
 
 @when(u'we should log the user in with a proper session value populated')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When the user clicked the sign up button')
+    with context.app.app_context():
+        assert current_user.id == context.user.id
+
