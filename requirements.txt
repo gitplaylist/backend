@@ -21,7 +21,6 @@ idna==2.1
 isbnlib==3.5.8
 iso3166==0.7
 itsdangerous==0.24
-httmock==1.2.5
 Jinja2==2.8
 lazy-object-proxy==1.2.1
 logilab-common==1.2.0
