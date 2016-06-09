@@ -9,8 +9,8 @@ from app import github, db
 
 bp = Blueprint('oauth', __name__)
 
-@bp.route('/users/signup/github')
-def github_signup():
+@bp.route('/users/github')
+def github_auth():
     return github.authorize(
         callback=url_for('oauth.github_oauth_handler', _external=True),
         next=request.args.get('next') or request.referrer
@@ -30,13 +30,14 @@ def get_github_token(token=None):
 def github_oauth_handler(res):
     next_url = request.args.get('next') or url_for('public.index')
 
-    if res is None:
+    if res is None or not res.get('access_token'):
         flash(u'You denied the request to sign in')
         return redirect(next_url)
 
     github_accesstoken = GithubAccessToken.query.filter(
         GithubAccessToken.access_token == res.get('access_token'),
     ).first()
+
 
     if not github_accesstoken:
         # Not signed up yet
