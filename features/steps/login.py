@@ -79,4 +79,4 @@ def step_impl(context):
 @then(u'we should log the Github user in with a proper session value populated')
 def step_impl(context):
     with context.app.app_context():
-        assert context.current_user_id == context.user.id
+        assert context.current_user_id == context.expected_user_id
