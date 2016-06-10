@@ -54,7 +54,8 @@ class User(db.Model, UserMixin):
 
     def __init__(self, email, password=None):
         self.email = email
-        self.password_hash = password
+        if password:
+            self.password_hash = password
 
     def __repr__(self):
         return '<User %r>' % (self.email)
