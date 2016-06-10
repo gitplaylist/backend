@@ -2,10 +2,10 @@ from __future__ import absolute_import
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask.views import MethodView
 from flask_login import login_user, current_user, logout_user
-from flask_validator import ValidateError
 
 from app import db
 from models.account import User
+from validators.exceptions import ValidationError
 
 bp = Blueprint('public', __name__)
 
@@ -25,10 +25,10 @@ class Signup(MethodView):
     def post(self):
         try:
             user = User(
-                request.form.get('email'),
-                request.form.get('password'),
+                email=request.form.get('email'),
+                password=request.form.get('password')
             )
-        except ValidateError as errors:
+        except ValidationError as errors:
             return render_template(self.template, errors=errors)
 
         db.session.add(user)

@@ -1,15 +1,14 @@
 from collections import defaultdict
-
-import zxcvbn
 from validate_email import validate_email
+import zxcvbn
 
-from app import db, login_manager
 from flask_login import UserMixin
-from flask_validator import ValidateEmail, ValidateError, ValidateLength
 from passlib.apps import custom_app_context as pwd_context
 from sqlalchemy.orm import validates
 from sqlalchemy.sql import func
 
+from app import db, login_manager
+from validators.exceptions import ValidationError
 
 class GithubAccessToken(db.Model):
     __tablename__ = 'github_accesstoken'
@@ -68,13 +67,15 @@ class User(db.Model, UserMixin):
 
     @validates('email')
     def validate_email(self, key, email):
-        assert validate_email(email)
+        if not validate_email(email):
+            raise ValidationError("Invaild email")
         return email
 
     @validates('password_hash')
     def validate_password(self, key, password):
         password_entropy = zxcvbn.password_strength(password)['entropy']
-        assert 20 < password_entropy
+        if password_entropy < 20:
+            raise ValidationError("Password too weak")
         password_hash = pwd_context.encrypt(password)
         return password_hash
 
