@@ -54,6 +54,7 @@ def step_impl(context):
         db.session.add(context.token)
         db.session.commit()
 
+        context.expected_user_id = context.user.id
 
 @when(u'the user clicked the Github single sign-on button')
 def step_impl(context):
@@ -71,11 +72,11 @@ def step_impl(context):
             '/callback/github?code=something'
         ):
             res = github_oauth_handler()
+            context.current_user_id = current_user.id
     assert res.status_code == 302
     assert res.headers['Location'].endswith("/")
 
-@when(u'we should log the user in with a proper session value populated')
+@then(u'we should log the Github user in with a proper session value populated')
 def step_impl(context):
     with context.app.app_context():
-        assert current_user.id == context.user.id
-
+        assert context.current_user_id == context.user.id

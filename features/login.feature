@@ -9,4 +9,4 @@ Feature: Login
     Scenario: User logged in with the Github single sign-on button
         Given the user is already signed up previously
         When the user clicked the Github single sign-on button
-        Then we should log the user in with a proper session value populated
+        Then we should log the Github user in with a proper session value populated
