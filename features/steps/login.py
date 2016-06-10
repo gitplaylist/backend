@@ -1,8 +1,10 @@
 from unittest.mock import MagicMock, Mock, patch
 
-from app import db
 from behave import given, then, when
+from flask import session
 from flask_login import current_user
+
+from app import db
 from models.account import GithubAccessToken, User
 from views.oauth import github_oauth_handler
 
@@ -66,13 +68,16 @@ def step_impl(context):
         "scope": context.scope,
         "token_type": context.token_type,
     })
-    with patch('app.github.get', github_get),\
+    with\
+        patch('app.github.get', github_get),\
         patch('app.github.authorized_response', github_authorized_response),\
-        context.app.test_request_context(
-            '/callback/github?code=something'
-        ):
+        context.app.test_request_context('/callback/github?code=something'):
+            # Github OAuth callback
             res = github_oauth_handler()
             context.current_user_id = current_user.id
+
+            # There aren't any errors
+            assert session.get('_flashes') in (None, [])
     assert res.status_code == 302
     assert res.headers['Location'].endswith("/")
 
