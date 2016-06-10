@@ -2,9 +2,8 @@
 from unittest.mock import MagicMock, Mock, patch
 
 from behave import given, then, when
-from models.account import GithubAccessToken, User
+from models.account import User
 from views.oauth import github_oauth_handler
-import app
 
 
 @given(u'the user entered an email and password.')
@@ -23,6 +22,16 @@ def step_impl(context):
 def step_impl(context):
     with context.app.app_context():
         assert User.query.filter(User.email == context.email).first() is not None
+
+@given(u'the user entered an invalid email.')
+def step_impl(context):
+    context.email = 'not an email'
+    context.password = 'stewartthis1isnotasecurepassword'
+
+@then(u'we should not create an account for the user with the designated email.')
+def step_impl(context):
+    with context.app.app_context():
+        assert User.query.filter(User.email == context.email).first() is None
 
 @given(u'the user clicked the Github sign up button with Github account signed in.')
 def step_impl(context):

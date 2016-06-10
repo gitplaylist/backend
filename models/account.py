@@ -1,11 +1,14 @@
 from collections import defaultdict
+from validate_email import validate_email
+import zxcvbn
 
-from app import db, login_manager
 from flask_login import UserMixin
-from flask_validator import ValidateEmail, ValidateError, ValidateLength
 from passlib.apps import custom_app_context as pwd_context
+from sqlalchemy.orm import validates
 from sqlalchemy.sql import func
 
+from app import db, login_manager
+from validators.exceptions import ValidationError
 
 class GithubAccessToken(db.Model):
     __tablename__ = 'github_accesstoken'
@@ -51,13 +54,11 @@ class User(db.Model, UserMixin):
 
     def __init__(self, email, password=None):
         self.email = email
-        self.password_hash = self.hash_password(password) if password else None
+        if password:
+            self.password_hash = password
 
     def __repr__(self):
         return '<User %r>' % (self.email)
-
-    def hash_password(self, password):
-        return pwd_context.encrypt(password)
 
     def verify_password(self, password):
         if self.password_hash:
@@ -65,17 +66,19 @@ class User(db.Model, UserMixin):
         else:
             return False
 
-    @classmethod
-    def __declare_last__(cls):
-        errors = defaultdict(list)
+    @validates('email')
+    def validate_email(self, key, email):
+        if not validate_email(email):
+            raise ValidationError("Invaild email")
+        return email
 
-        # if ValidateEmail(User.email):
-        #     errors['email'] = 'invalid email'
-        # if ValidateLength(User.password_hash, min_length=8, max_length=128):
-        #     errors['password'] = 'invalid password length'
-
-        if errors:
-            raise ValidateError(errors)
+    @validates('password_hash')
+    def validate_password(self, key, password):
+        password_entropy = zxcvbn.password_strength(password)['entropy']
+        if password_entropy < 20:
+            raise ValidationError("Password too weak")
+        password_hash = pwd_context.encrypt(password)
+        return password_hash
 
 
 @login_manager.user_loader
