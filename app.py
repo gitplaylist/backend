@@ -26,7 +26,7 @@ github = oauth.remote_app(
     consumer_key=Config.GITHUB_CLIENT_ID,
     consumer_secret=Config.GITHUB_CLIENT_SECRET,
 )
-def change_github_header(uri, headers, body):
+def change_github_header(uri, headers, body):  # pragma: no cover
     auth = headers.get('Authorization')
     if auth:
         auth = auth.replace('Bearer', 'token')
