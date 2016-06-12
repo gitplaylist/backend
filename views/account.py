@@ -1,8 +1,8 @@
 """Acconnt endpoints"""
 from __future__ import absolute_import
 
-from flask_restful import Resource, fields, marshal_with
 from flask import request
+from flask_restful import Resource, fields, marshal_with
 from flask_login import login_user
 
 from app import api, db
@@ -20,6 +20,10 @@ user_fields = {
 class UserResource(Resource):
 
     @marshal_with(user_fields)
+    def get(self, user_id):
+        return User.query.get_or_404(user_id)
+
+    @marshal_with(user_fields)
     def post(self):
         try:
             user = User(
@@ -34,10 +38,6 @@ class UserResource(Resource):
 
         login_user(user)
 
-        return user
-
-    @marshal_with(user_fields)
-    def get(self, user_id):
-        return User.query.get_or_404(user_id)
+        return user, 201
 
 api.add_resource(UserResource, '/users/<int:user_id>')
