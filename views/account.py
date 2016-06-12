@@ -40,4 +40,4 @@ class UserResource(Resource):
 
         return user, 201
 
-api.add_resource(UserResource, '/users/<int:user_id>')
+api.add_resource(UserResource, '/users', '/users/<int:user_id>')

@@ -50,8 +50,8 @@ def create_app():
     db.init_app(app)
     app.db = db
     Migrate(app, db)
-    api.init_app(app)
 
+    assets.init_app(app)
     login_manager.init_app(app)
 
     # Install views
@@ -64,7 +64,7 @@ def create_app():
 
     # Install API
     from views.account import UserResource
-    assets.init_app(app)
+    api.init_app(app)
 
     # Install models
     from models.account import User

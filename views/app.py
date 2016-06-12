@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 from flask.views import MethodView
 from flask_login import current_user
 
-bp = Blueprint('public', __name__)
+bp = Blueprint('app', __name__)
 
 
 class IndexView(MethodView):
@@ -12,7 +12,7 @@ class IndexView(MethodView):
             return render_template('app.html')
         return render_template('public/index.html')
 
-bp.add_url_rule('/', IndexView.as_view('index'))
+bp.add_url_rule('/', view_func=IndexView.as_view('index'))
 
 class RenderTemplateView(MethodView):
 
@@ -22,5 +22,5 @@ class RenderTemplateView(MethodView):
     def get(self):
         return render_template(self.template_name)
 
-bp.add_url_rule('/sign-up', RenderTemplateView.as_view('signup', template_name='public/sign_up.html'))
-bp.add_url_rule('/login', RenderTemplateView.as_view('login', template_name='public/login.html'))
+bp.add_url_rule('/sign-up', view_func=RenderTemplateView.as_view('signup', template_name='public/sign_up.html'))
+bp.add_url_rule('/login', view_func=RenderTemplateView.as_view('login', template_name='public/login.html'))
