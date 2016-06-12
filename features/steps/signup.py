@@ -13,7 +13,7 @@ def step_impl(context):
 
 @when(u'the user clicked the sign up button.')
 def step_impl(context):
-    context.client.post('/sign_up', data={
+    context.client.post('/users', data={
         "email": context.email,
         "password": context.password,
     })

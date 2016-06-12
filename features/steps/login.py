@@ -24,7 +24,7 @@ def step_impl(context):
 
 @when(u'the user clicked the log in button')
 def step_impl(context):
-    context.client.post('/login', data={
+    context.client.post('/users/authorize', data={
         "email": context.email,
         "password": context.password,
     })

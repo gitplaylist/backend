@@ -1,11 +1,10 @@
 """Implement OAuth callbacks."""
-import requests
+from __future__ import absolute_import
+from flask import Blueprint, request, session, url_for, flash, redirect
+from flask_login import login_user, current_user
 
-from flask import Blueprint, current_app, request, session, url_for, flash, redirect
-from flask_login import login_user, current_user, logout_user
-from flask.views import MethodView
-from models.account import GithubAccessToken, User
 from app import github, db
+from models.account import GithubAccessToken, User
 
 bp = Blueprint('oauth', __name__)
 
@@ -28,7 +27,7 @@ def get_github_token(token=None):
 @bp.route('/callback/github')
 @github.authorized_handler
 def github_oauth_handler(res):
-    next_url = request.args.get('next') or url_for('public.index')
+    next_url = request.args.get('next') or url_for('app.index')
 
     if res is None or not res.get('access_token'):
         flash(u'You denied the request to sign in')
