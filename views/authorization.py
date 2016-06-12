@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from flask import Blueprint, request
 from flask.views import MethodView
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 from models.account import User
 
@@ -18,3 +18,11 @@ class Authorize(MethodView):
         return {'message': 'Invaild authorization information given'}, 400
 
 bp.add_url_rule('/users/authorize', view_func=Authorize.as_view('authorize'))
+
+class Logout(MethodView):
+
+    def post(self):
+        logout_user()
+        return ''
+
+bp.add_url_rule('/users/logout', view_func=Logout.as_view('logout'))
