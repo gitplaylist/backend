@@ -1,14 +1,13 @@
 from __future__ import absolute_import
-from flask import Blueprint, request
-from flask.views import MethodView
+from flask import request
 from flask_login import login_user, logout_user
+from flask_restful import Resource
 
+from app import api
 from models.account import User
 
-bp = Blueprint('authorization', __name__)
 
-
-class Authorize(MethodView):
+class Authorize(Resource):
 
     def post(self):
         user = User.query.filter(User.email == request.form.get('email')).first()
@@ -17,12 +16,12 @@ class Authorize(MethodView):
             return user.id
         return {'message': 'Invaild authorization information given'}, 400
 
-bp.add_url_rule('/users/authorize', view_func=Authorize.as_view('authorize'))
+api.add_resource(Authorize, '/users/authorize')
 
-class Logout(MethodView):
+class Logout(Resource):
 
     def post(self):
         logout_user()
         return ''
 
-bp.add_url_rule('/users/logout', view_func=Logout.as_view('logout'))
+api.add_resource(Logout, '/users/logout')

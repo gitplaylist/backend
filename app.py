@@ -55,15 +55,14 @@ def create_app():
     login_manager.init_app(app)
 
     # Install views
-    from views.authorization import bp as authorization_bp
     from views.app import bp as app_bp
     from views.oauth import bp as oauth_bp
-    app.register_blueprint(authorization_bp)
     app.register_blueprint(app_bp)
     app.register_blueprint(oauth_bp)
 
     # Install API
-    from views.account import UserResource
+    from views import account
+    from views import authorization
     api.init_app(app)
 
     # Install models
