@@ -1,7 +1,7 @@
 from flask import Flask
 from flask.ext.assets import Bundle, Environment
 from flask_login import LoginManager
-from flask_migrate import Migrate, MigrateCommand
+from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from webassets.filter import register_filter
@@ -49,10 +49,9 @@ def create_app():
     # Set up extensions
     db.init_app(app)
     app.db = db
-    migrate = Migrate(app, db)
-
+    Migrate(app, db)
     api.init_app(app)
-    assets.init_app(app)
+
     login_manager.init_app(app)
 
     # Install views
@@ -62,6 +61,10 @@ def create_app():
     app.register_blueprint(app_bp)
     app.register_blueprint(public_bp)
     app.register_blueprint(oauth_bp)
+
+    # Install API
+    from views.account import UserResource
+    assets.init_app(app)
 
     # Install models
     from models.account import User
