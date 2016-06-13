@@ -17,11 +17,12 @@ def github_auth():
 
 
 @github.tokengetter
-def get_github_token(token=None):
+def get_github_token():
     if current_user.is_authenticated:
-        return current_user.github_accesstoken.access_token
+        access_token = current_user.github_accesstoken.access_token
     else:
-        return session.get('github_accesstoken')
+        access_token = session.get('github_accesstoken')
+    return (access_token, "")
 
 
 @bp.route('/callback/github')
@@ -33,17 +34,12 @@ def github_oauth_handler(res):
         flash(u'You denied the request to sign in')
         return redirect(next_url)
 
-    github_accesstoken = GithubAccessToken.query.filter(
-        GithubAccessToken.access_token == res.get('access_token'),
-    ).first()
+    session['github_accesstoken'] = res.get('access_token')
+    res = github.get('user').data
 
-
-    if not github_accesstoken:
-        # Not signed up yet
-        session['github_accesstoken'] = res.get('access_token')
-        res = github.get('user').data
-
-        # Create the user object.
+    user = User.query.filter(User.email == res.get('email')).first()
+    if not user:
+        # Create the user object if the user wasn't signed up.
         user = User(res.get('email'))
         db.session.add(user)
         db.session.commit()
@@ -55,8 +51,15 @@ def github_oauth_handler(res):
             res.get('scope'),
             res.get('access_token'),
         )
-        db.session.add(github_accesstoken)
-        db.session.commit()
+    else:
+        # Get the access token and change it.
+        github_accesstoken = user.github_accesstoken
+        github_accesstoken.token_type = res.get('token_type')
+        github_accesstoken.scope = res.get('scope')
+        github_accesstoken.access_token = res.get('access_token')
+
+    db.session.add(github_accesstoken)
+    db.session.commit()
 
     login_user(github_accesstoken.user)
 
