@@ -11,6 +11,16 @@ def step_impl(context):
     context.email = 'sign.up@example.com'
     context.password = 'stewartthis1isnotasecurepassword'
 
+@given(u'the user entered an invalid email.')
+def step_impl(context):
+    context.email = 'not an email'
+    context.password = 'stewartthis1isnotasecurepassword'
+
+@given(u'the user entered an invalid password.')
+def step_impl(context):
+    context.email = 'bad.sign.up@example.com'
+    context.password = 'password'
+
 @when(u'the user clicked the sign up button.')
 def step_impl(context):
     context.client.post('/users', data={
@@ -22,11 +32,6 @@ def step_impl(context):
 def step_impl(context):
     with context.app.app_context():
         assert User.query.filter(User.email == context.email).first() is not None
-
-@given(u'the user entered an invalid email.')
-def step_impl(context):
-    context.email = 'not an email'
-    context.password = 'stewartthis1isnotasecurepassword'
 
 @then(u'we should not create an account for the user with the designated email.')
 def step_impl(context):

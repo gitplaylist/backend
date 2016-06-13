@@ -17,23 +17,25 @@ def step_impl(context):
     with context.app.app_context():
         user = User(
             email=context.email,
-            password=context.email,
+            password=context.password,
         )
         db.session.add(user)
         db.session.commit()
 
 @when(u'the user clicked the log in button')
 def step_impl(context):
-    context.client.post('/users/authorize', data={
-        "email": context.email,
-        "password": context.password,
-    })
+    with context.client:
+        context.client.post('/users/authorize', data={
+            "email": context.email,
+            "password": context.password,
+        })
+        context.current_user_id = current_user.id
 
 @then(u'we should log the user in with a proper session value populated')
 def step_impl(context):
-    with context.app.app_context():
+    with context.client, context.app.app_context():
         user = User.query.filter(User.email == context.email).first()
-        assert user.is_authenticated
+        assert context.current_user_id == user.id
 
 @given(u'the user is already signed up previously')
 def step_impl(context):
@@ -46,7 +48,7 @@ def step_impl(context):
     with context.app.app_context():
         context.user = User(
             email=context.email,
-            password=context.email,
+            password=context.password,
         )
         db.session.add(context.user)
         db.session.commit()
