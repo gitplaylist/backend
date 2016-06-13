@@ -35,7 +35,6 @@ def step_impl(context):
 def step_impl(context):
     with context.client, context.app.app_context():
         user = User.query.filter(User.email == context.email).first()
-        assert user.is_authenticated
         assert context.current_user_id == user.id
 
 @given(u'the user is already signed up previously')
