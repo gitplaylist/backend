@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom'
 import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
-import IndexView from './components.index';
-import AboutView from './components.about';
-import NoMatchView from './components.nomatch';
-import UserView from './components.user';
-import UserListView from './components.userlist';
+import IndexView from './components/index.jsx';
+import AboutView from './components/about.jsx';
+import NoMatchView from './components/nomatch.jsx';
+import UserView from './components/user.jsx';
+import UserListView from './components/userlist.jsx';
 
 
 class App extends React.Component {

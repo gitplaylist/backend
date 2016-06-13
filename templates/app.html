@@ -2,7 +2,7 @@
 
 
 {% block nav_links %}
-<a href="/profile">my name</a>
+<a href="/profile">{{ current_user.email }}</a>
 <a href="/logout">Logout</a>
 {% endblock %}
 

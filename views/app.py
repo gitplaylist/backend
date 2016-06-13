@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, redirect, render_template, url_for
 from flask.views import MethodView
-from flask_login import current_user
+from flask_login import current_user, logout_user
 
 bp = Blueprint('app', __name__)
 
@@ -12,7 +12,6 @@ class IndexView(MethodView):
             return render_template('app.html')
         return render_template('public/index.html')
 
-bp.add_url_rule('/', view_func=IndexView.as_view('index'))
 
 class RenderTemplateView(MethodView):
 
@@ -22,5 +21,15 @@ class RenderTemplateView(MethodView):
     def get(self):
         return render_template(self.template_name)
 
+
+class LogoutTemplateView(MethodView):
+
+    def get(self):
+        logout_user()
+        return redirect(url_for('app.index'))
+
+
+bp.add_url_rule('/', view_func=IndexView.as_view('index'))
 bp.add_url_rule('/sign-up', view_func=RenderTemplateView.as_view('signup', template_name='public/sign_up.html'))
 bp.add_url_rule('/login', view_func=RenderTemplateView.as_view('login', template_name='public/login.html'))
+bp.add_url_rule('/logout', view_func=LogoutTemplateView.as_view('logout'))
