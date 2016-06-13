@@ -1,14 +1,14 @@
+from config import Config
+
 from flask import Flask
 from flask.ext.assets import Bundle, Environment
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from flask_restful import Api
+from flask_oauthlib.client import OAuth
+from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from webassets.filter import register_filter
 from webassets_browserify import Browserify
-from flask_oauthlib.client import OAuth
-
-from config import Config
 
 register_filter(Browserify)
 

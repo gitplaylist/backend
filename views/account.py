@@ -18,13 +18,16 @@ user_fields = {
 }
 
 class UserResource(Resource):
+    """Define user RESTful endpoints."""
 
     @marshal_with(user_fields)
     def get(self, user_id):
+        """Serve GET requests."""
         return User.query.get_or_404(user_id)
 
     @marshal_with(user_fields)
     def post(self):
+        """Serve POST requests."""
         try:
             user = User(
                 email=request.form.get('email', ''),
