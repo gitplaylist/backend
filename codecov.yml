@@ -11,6 +11,11 @@ coverage:
       default:
         if_no_uploads: error
     changes: true
+  notify:
+    slack:
+      default:
+        url: https://hooks.slack.com/services/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
+        attachments: "sunburst, diff"
 comment:
   layout: "header, diff, changes, sunburst, uncovered"
   behavior: default
