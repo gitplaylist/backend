@@ -1,4 +1,3 @@
-from collections import defaultdict
 from validate_email import validate_email
 import zxcvbn
 
