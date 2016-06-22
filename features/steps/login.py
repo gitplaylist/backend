@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, Mock, patch
 
 from behave import given, then, when
 from flask import session
-from flask_login import current_user
+from flask_login import current_user, logout_user
 
 from app import db
 from models.account import GithubAccessToken, User
@@ -12,44 +12,56 @@ from views.oauth import github_oauth_handler
 @given(u'the user entered the email and the password')
 def step_impl(context):
     context.email = 'login@example.com'
-    context.password = 'stewartthis1isnotasecurepassword'
-
-    with context.app.app_context():
-        user = User(
-            email=context.email,
-            password=context.password,
-        )
-        db.session.add(user)
-        db.session.commit()
-
-@when(u'the user clicked the log in button')
-def step_impl(context):
-    with context.client:
-        context.client.post('/users/authorize', data={
-            "email": context.email,
-            "password": context.password,
-        })
-        context.current_user_id = current_user.id
-
-@then(u'we should log the user in with a proper session value populated')
-def step_impl(context):
-    with context.client, context.app.app_context():
-        user = User.query.filter(User.email == context.email).first()
-        assert context.current_user_id == user.id
-
-@given(u'the user is already signed up previously')
-def step_impl(context):
-    context.email = 'login+1@example.com'
-    context.password = 'stewartthis1isnotasecurepassword'
-    context.access_token = 'existing-token'
-    context.scope = ''
-    context.token_type = 'bearer'
+    context.password = 'password and some entropy: 12345'
 
     with context.app.app_context():
         context.user = User(
             email=context.email,
             password=context.password,
         )
+        db.session.add(context.user)
+        db.session.commit()
+
+@when(u'the user clicked the log in button')
+def step_impl(context):
+    with context.app.app_context():
+        context.response = context.client.post('/users/authorize', data={
+            "email": context.email,
+            "password": context.password,
+        })
+
+@then(u'we should log the user in with a proper session value populated')
+def step_impl(context):
+    with context.app.app_context():
+        assert context.response.status_code == 200
+
+@given(u'the user entered the email and an incorrect password')
+def step_impl(context):
+    context.email = 'badlogin@example.com'
+    context.password = 'incorrect password'
+
+    with context.app.app_context():
+        context.user = User(
+            email=context.email,
+            password="incorrect password with entropy",
+        )
+        db.session.add(context.user)
+        db.session.commit()
+
+@then(u'we should not log the user in')
+def step_impl(context):
+    with context.app.app_context():
+        assert context.response.status_code == 400
+
+@given(u'the user is already signed up previously')
+def step_impl(context):
+    context.email = 'login+1@example.com'
+    context.access_token = 'existing-token'
+    context.scope = ''
+    context.token_type = 'bearer'
+
+    with context.app.app_context():
+        context.user = User(email=context.email)
         db.session.add(context.user)
         db.session.commit()
         context.token = GithubAccessToken(

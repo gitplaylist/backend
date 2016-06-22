@@ -11,7 +11,7 @@ class Authorize(Resource):
 
     def post(self):
         user = User.query.filter(User.email == request.form.get('email')).first()
-        if user.verify_password(request.form.get('password')):
+        if user and user.verify_password(request.form.get('password')):
             login_user(user)
             return user.id
         return {'message': 'Invaild authorization information given'}, 400
