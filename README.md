@@ -4,8 +4,8 @@
 [![codecov](https://codecov.io/gh/gitplaylist/gitplaylist/branch/master/graph/badge.svg)](https://codecov.io/gh/gitplaylist/gitplaylist)
 [![docker](https://img.shields.io/docker/pulls/gitplaylist/gitplaylist.svg)](https://hub.docker.com/r/gitplaylist/gitplaylist/)
 [![Imagelayers](https://imagelayers.io/badge/gitplaylist/gitplaylist:latest.svg)](https://imagelayers.io/?images=gitplaylist/gitplaylist:latest)
-[![Requires.io](https://img.shields.io/requires/github/gitplaylist/gitplaylist.svg?maxAge=2592000)]()
-[![Maintenance](https://img.shields.io/maintenance/yes/2016.svg?maxAge=2592000)]()
+[![Requires.io](https://img.shields.io/requires/github/gitplaylist/gitplaylist.svg?maxAge=2592000)](https://github.com/gitplaylist/gitplaylist)
+[![Maintenance](https://img.shields.io/maintenance/yes/2016.svg?maxAge=2592000)](https://github.com/gitplaylist/gitplaylist)
 
 
 ## Setup
