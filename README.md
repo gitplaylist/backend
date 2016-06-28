@@ -1,6 +1,6 @@
 # gitplaylist
 
-[![CircleCI](https://circleci.com/gh/gitplaylist/gitplaylist.svg?style=svg)](https://circleci.com/gh/gitplaylist/gitplaylist)
+[![CircleCI](https://circleci.com/gh/gitplaylist/gitplaylist.svg?style=shield)](https://circleci.com/gh/gitplaylist/gitplaylist)
 [![codecov](https://codecov.io/gh/gitplaylist/gitplaylist/branch/master/graph/badge.svg)](https://codecov.io/gh/gitplaylist/gitplaylist)
 [![docker](https://img.shields.io/docker/pulls/gitplaylist/gitplaylist.svg)](https://hub.docker.com/r/gitplaylist/gitplaylist/)
 [![Imagelayers](https://imagelayers.io/badge/gitplaylist/gitplaylist:latest.svg)](https://imagelayers.io/?images=gitplaylist/gitplaylist:latest)
