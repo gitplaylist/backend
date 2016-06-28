@@ -5,6 +5,7 @@
 [![docker](https://img.shields.io/docker/pulls/gitplaylist/gitplaylist.svg)](https://hub.docker.com/r/gitplaylist/gitplaylist/)
 [![Imagelayers](https://imagelayers.io/badge/gitplaylist/gitplaylist:latest.svg)](https://imagelayers.io/?images=gitplaylist/gitplaylist:latest)
 [![Requirements Status](https://requires.io/github/gitplaylist/gitplaylist/requirements.svg?branch=master)](https://requires.io/github/gitplaylist/gitplaylist/requirements/?branch=master)
+[![Dependency Status](https://david-dm.org/gitplaylist/gitplaylist.svg?branch=master)](https://david-dm.org/gitplaylist/gitplaylist?branch=master)
 [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg?maxAge=2592000)](https://github.com/gitplaylist/gitplaylist)
 
 
