@@ -32,4 +32,5 @@ deployment:
     commands:
       - docker login -e $DOCKER_EMAIL -p $DOCKER_PASS -u $DOCKER_NAME
       - docker build -t gitplaylist/gitplaylist .
-      - docker push gitplaylist/gitplaylist
+      - docker push gitplaylist/gitplaylist:${CIRCLE_SHA1}
+      - docker push gitplaylist/gitplaylist:latest
