@@ -5,4 +5,5 @@ FROM python:3-onbuild
 EXPOSE 80
 
 # run the application
-CMD ["python", "manage.py", "runserver"]
+ENTRYPOINT ["python", "manage.py"]
+CMD ["runserver"]
