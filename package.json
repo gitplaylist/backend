@@ -17,6 +17,7 @@
     "babel-preset-stage-0": "6.5.0",
     "babelify": "7.2.0",
     "browserify": "13.0.0",
+    "gitplaylist-brand": "git://github.com/gitplaylist/brand.git",
     "htmlhint": "0.9.12",
     "jshint": "2.9.1",
     "react": "15.0.1",
