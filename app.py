@@ -1,7 +1,7 @@
 from config import Config
 
-from flask import Flask
-from flask.ext.assets import Bundle, Environment
+from flask import Blueprint, Flask
+from flask_assets import Bundle, Environment
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_oauthlib.client import OAuth
@@ -38,10 +38,8 @@ def change_github_header(uri, headers, body):  # pragma: no cover
 
 github.pre_request = change_github_header
 
-scss = Bundle('scss/*.scss', 'scss/components/*.scss', filters='scss', output='gen/app.css')
 jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js', depends='jsx/**/*.jsx')
 
-assets.register('scss', scss)
 assets.register('jsx', jsx)
 
 def create_app():
@@ -62,6 +60,10 @@ def create_app():
     from views.oauth import bp as oauth_bp
     app.register_blueprint(app_bp)
     app.register_blueprint(oauth_bp)
+
+    # Install branding
+    brand = Blueprint('brand', __name__, static_folder='node_modules/gitplaylist-brand', static_url_path='/brand')
+    app.register_blueprint(brand)
 
     # Install API
     from views import account
