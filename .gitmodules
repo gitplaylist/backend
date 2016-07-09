@@ -1,3 +1,4 @@
+
 [submodule "config"]
 	path = config
-	url = git@bitbucket.org:writegracelee/gitplaylist-settings.git
+	url = git@bitbucket.org:gitplaylist/config.git
