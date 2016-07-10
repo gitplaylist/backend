@@ -47,11 +47,13 @@ class SpotifyAccessToken(db.Model):
     date_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
     date_updated = db.Column(db.DateTime(timezone=True), onupdate=func.now())
 
-    def __init__(self, user_id, token_type, scope, access_token):
+    def __init__(self, user_id, token_type, scope, access_token, expires_in, refresh_token):
         self.user_id = user_id
         self.token_type = token_type
         self.scope = scope
         self.access_token = access_token
+        self.expires_in = expires_in
+        self.refresh_token = refresh_token
 
     def __repr__(self):
         return '<SpotifysToken {} of {}>'.format(
