@@ -26,7 +26,7 @@ spotify = oauth.remote_app(
     base_url='https://accounts.spotify.com/',
     request_token_url=None,
     access_token_method='POST',
-    access_token_url='https://accounts.spotify.com/api/token',
+    access_token_url='/api/token',
     authorize_url='https://accounts.spotify.com/authorize',
 )
 
