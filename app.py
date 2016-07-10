@@ -5,7 +5,7 @@ from flask_assets import Bundle, Environment
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_oauthlib.client import OAuth
-from flask_restful import Api, Resource
+from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from webassets.filter import register_filter
 from webassets_browserify import Browserify
@@ -17,6 +17,18 @@ api = Api()
 assets = Environment()
 login_manager = LoginManager()
 oauth = OAuth()
+
+spotify = oauth.remote_app(
+    'Spotify OAuth',
+    consumer_key=Config.SPOTIFY_CLIENT_ID,
+    consumer_secret=Config.SPOTIFY_CLIENT_SECRET,
+    request_token_params={'scope': 'user-read-email'},
+    base_url='https://accounts.spotify.com/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://accounts.spotify.com/api/token',
+    authorize_url='https://accounts.spotify.com/authorize',
+)
 
 github = oauth.remote_app(
     'Github OAuth',
