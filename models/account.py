@@ -22,10 +22,8 @@ class GithubAccessToken(db.Model):
     scope = db.Column(db.String(64))
     access_token = db.Column(db.String(40), unique=True)
 
-    date_created = db.Column(
-        db.DateTime(timezone=True), server_default=func.now())
-    date_updated = db.Column(
-        db.DateTime(timezone=True), onupdate=func.now())
+    date_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    date_updated = db.Column(db.DateTime(timezone=True), onupdate=func.now())
 
     def __init__(self, user_id, token_type, scope, access_token):
         self.user_id = user_id
