@@ -13,7 +13,7 @@ class GithubAccessToken(db.Model):
 
     token_type = db.Column(db.String(16))
     scope = db.Column(db.String(64))
-    access_token = db.Column(db.String(64), unique=True)
+    access_token = db.Column(db.String(256), unique=True)
 
     date_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
     date_updated = db.Column(db.DateTime(timezone=True), onupdate=func.now())
@@ -38,11 +38,11 @@ class SpotifyAccessToken(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship("User")
 
-    access_token = db.Column(db.String(64), unique=True)
+    access_token = db.Column(db.String(256), unique=True)
     token_type = db.Column(db.String(16))
     scope = db.Column(db.String(64))
     expires_in  = db.Column(db.Integer)
-    refresh_token = db.Column(db.String(64), unique=True)
+    refresh_token = db.Column(db.String(256), unique=True)
 
     date_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
     date_updated = db.Column(db.DateTime(timezone=True), onupdate=func.now())

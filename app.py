@@ -23,10 +23,10 @@ spotify = oauth.remote_app(
     consumer_key=Config.SPOTIFY_CLIENT_ID,
     consumer_secret=Config.SPOTIFY_CLIENT_SECRET,
     request_token_params={'scope': 'user-read-email'},
-    base_url='https://accounts.spotify.com/',
+    base_url='https://api.spotify.com/',
     request_token_url=None,
     access_token_method='POST',
-    access_token_url='/api/token',
+    access_token_url='https://accounts.spotify.com/api/token',
     authorize_url='https://accounts.spotify.com/authorize',
 )
 

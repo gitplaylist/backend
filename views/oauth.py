@@ -50,12 +50,18 @@ def github_oauth_handler(response):
             github_user.get('scope'),
             github_user.get('access_token'),
         )
+        db.session.add(github_accesstoken)
+        db.session.commit()
     else:
         # Get the access token and change it.
         github_accesstoken = user.github_accesstoken
         github_accesstoken.token_type = github_user.get('token_type')
         github_accesstoken.scope = github_user.get('scope')
         github_accesstoken.access_token = github_user.get('access_token')
+
+    login_user(github_accesstoken.user)
+
+    return redirect(next_url)
 
 @bp.route('/users/spotify')
 def spotify_auth():
@@ -75,14 +81,14 @@ def get_spotify_token():
 @bp.route('/callback/spotify')
 @spotify.authorized_handler
 def spotify_oauth_handler(response):
-    if not (response and response.get('access_token')):
-        return 'Access denied: reason={0} error={1}'.format(
-            request.args['error_reason'],
-            request.args['error_description']
-        )
+    next_url = request.args.get('next') or url_for('app.index')
+
+    if response is None or not response.get('access_token'):
+        flash(u'You denied the request to sign in')
+        return redirect(next_url)
 
     session['spotify_accesstoken'] = response.get('access_token')
-    spotify_user = spotify.get('/me').data
+    spotify_user = spotify.get('/v1/me').data
 
     user = User.query.filter(User.email == spotify_user.get('email')).first()
     if not user:
@@ -91,6 +97,15 @@ def spotify_oauth_handler(response):
         db.session.add(user)
         db.session.commit()
 
+    if user.spotify_accesstoken:
+        # Get the access token and change it.
+        spotify_accesstoken = user.spotify_accesstoken
+        spotify_accesstoken.token_type = response.get('token_type')
+        spotify_accesstoken.scope = response.get('scope')
+        spotify_accesstoken.access_token = response.get('access_token')
+        spotify_accesstoken.expires_in = response.get('expires_in')
+        spotify_accesstoken.refresh_token = response.get('refresh_token')
+    else:
         # Save the token for the user.
         spotify_accesstoken = SpotifyAccessToken (
             user.id,
@@ -100,9 +115,9 @@ def spotify_oauth_handler(response):
             spotify_user.get('expires_in'),
             spotify_user.get('refresh_token'),
         )
-    else:
-        # Get the access token and change it.
-        spotify_accesstoken = user.spotify_accesstoken
-        spotify_accesstoken.token_type = spotify_user.get('token_type')
-        spotify_accesstoken.scope = spotify_user.get('scope')
-        spotify_accesstoken.access_token = spotify_user.get('access_token')
+    db.session.add(spotify_accesstoken)
+    db.session.commit()
+
+    login_user(spotify_accesstoken.user)
+
+    return redirect(next_url)
