@@ -21,3 +21,8 @@ Feature: Sign Up
         Given the user clicked the Github sign up button with Github account signed in.
         When approved on the Github OAuth authorization and called back to our website.
         Then we should create an account for the user with the designated Github account.
+
+    Scenario: User signed up with a Spotify access token/refresh token.
+        Given the user clicked the Spotify sign up button with Spotify account signed in.
+        When approved on the Spotify OAuth authorization and called back to our website.
+        Then we should create an account for the user with the designated Spotify account.

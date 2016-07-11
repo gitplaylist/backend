@@ -12,6 +12,11 @@ Feature: Login
         Then we should not log the user in
 
     Scenario: User logged in with the Github single sign-on button
-        Given the user is already signed up previously
+        Given the user is already signed up with Github
         When the user clicked the Github single sign-on button
-        Then we should log the Github user in with a proper session value populated
+        Then we should log the user in with the proper session value populated
+
+    Scenario: User logged in with the Spotify single sign-on button
+        Given the user is already signed up with Spotify
+        When the user clicked the Spotify single sign-on button
+        Then we should log the user in with the proper session value populated
