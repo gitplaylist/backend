@@ -50,10 +50,6 @@ def change_github_header(uri, headers, body):  # pragma: no cover
 
 github.pre_request = change_github_header
 
-jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js', depends='jsx/**/*.jsx')
-
-assets.register('jsx', jsx)
-
 def create_app():
     """ Initializing the app """
     app = Flask(__name__)
@@ -68,14 +64,8 @@ def create_app():
     login_manager.init_app(app)
 
     # Install views
-    from views.app import bp as app_bp
     from views.oauth import bp as oauth_bp
-    app.register_blueprint(app_bp)
     app.register_blueprint(oauth_bp)
-
-    # Install branding
-    brand = Blueprint('brand', __name__, static_folder='node_modules/gitplaylist-brand', static_url_path='/brand')
-    app.register_blueprint(brand)
 
     # Install API
     from views import account
