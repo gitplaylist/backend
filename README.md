@@ -11,6 +11,7 @@
 
 ## Setup
 ```bash
+$ git submodule init && git submodule update
 $ sudo gem install sass
 $ sudo npm install -g browserify babel-cli babelify
 $ npm install
