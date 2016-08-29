@@ -1,5 +1,3 @@
-from config import Config
-
 from flask import Blueprint, Flask
 from flask_assets import Bundle, Environment
 from flask_login import LoginManager
@@ -9,6 +7,8 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from webassets.filter import register_filter
 from webassets_browserify import Browserify
+
+from config import Config
 
 register_filter(Browserify)
 
