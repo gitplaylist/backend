@@ -1,4 +1,4 @@
 
 [submodule "config"]
-	path = config
+	path = app/config
 	url = git@bitbucket.org:gitplaylist/config.git

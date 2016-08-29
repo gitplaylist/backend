@@ -11,9 +11,6 @@
 ## Setup
 ```bash
 $ git submodule init && git submodule update
-$ sudo gem install sass
-$ sudo npm install -g browserify babel-cli babelify
-$ npm install
 $ pip install pip-save
 $ pip install -r requirements.txt
 $ ./manage.py runserver
@@ -21,7 +18,7 @@ $ ./manage.py runserver
 
 In project root directory run:
 ```
-ln -s ../../hooks/pre-commit.sh .git/hooks/pre-commit
+ln -s ../../pre-commit.sh .git/hooks/pre-commit
 sudo chmod +x .git/hooks/pre-commit
 ```
 
