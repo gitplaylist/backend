@@ -1,5 +1,6 @@
 from flask import Blueprint, Flask
 from flask_assets import Bundle, Environment
+from flask_cors import CORS, cross_origin
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_oauthlib.client import OAuth
@@ -59,6 +60,7 @@ def create_app():
     db.init_app(app)
     app.db = db
     Migrate(app, db)
+    CORS(app) # TODO: Don't allow all in production
 
     assets.init_app(app)
     login_manager.init_app(app)
