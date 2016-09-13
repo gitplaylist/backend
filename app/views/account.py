@@ -2,12 +2,12 @@
 from __future__ import absolute_import
 
 from flask import request
-from flask_restful import Resource, fields, marshal_with
+from flask_restful import fields, marshal, Resource
 from flask_login import login_user
 
 from app import api, db
 from models.account import User
-from validators.exceptions import ValidationError
+from exceptions import ValidationError
 
 
 user_fields = {
@@ -20,12 +20,11 @@ user_fields = {
 class UserResource(Resource):
     """Define user RESTful endpoints."""
 
-    @marshal_with(user_fields)
     def get(self, user_id):
         """Serve GET requests."""
-        return User.query.get_or_404(user_id)
+        user = User.query.get_or_404(user_id)
+        return marshal(user, user_fields)
 
-    @marshal_with(user_fields)
     def post(self):
         """Serve POST requests."""
         try:
@@ -33,14 +32,14 @@ class UserResource(Resource):
                 email=request.form.get('email', ''),
                 password=request.form.get('password', '')
             )
-        except ValidationError as errors:
-            return {'message': errors}, 400
+        except ValidationError as error:
+            return {'errors': error.message}, 400
 
         db.session.add(user)
         db.session.commit()
 
         login_user(user)
 
-        return user, 201
+        return marshal(user, user_fields), 201
 
 api.add_resource(UserResource, '/users', '/users/<int:user_id>')

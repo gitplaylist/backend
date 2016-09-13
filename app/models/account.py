@@ -8,7 +8,7 @@ from sqlalchemy.sql import func
 
 from app import db, login_manager
 from models.oauth import GithubAccessToken, SpotifyAccessToken
-from validators.exceptions import ValidationError
+from exceptions import ValidationError
 
 
 class User(db.Model, UserMixin):

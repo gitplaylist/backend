@@ -1,7 +1,6 @@
-from config import Config
-
 from flask import Blueprint, Flask
 from flask_assets import Bundle, Environment
+from flask_cors import CORS, cross_origin
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_oauthlib.client import OAuth
@@ -9,6 +8,8 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from webassets.filter import register_filter
 from webassets_browserify import Browserify
+
+from config import Config
 
 register_filter(Browserify)
 
@@ -50,10 +51,6 @@ def change_github_header(uri, headers, body):  # pragma: no cover
 
 github.pre_request = change_github_header
 
-jsx = Bundle('jsx/*.jsx', filters='browserify', output='gen/app.js', depends='jsx/**/*.jsx')
-
-assets.register('jsx', jsx)
-
 def create_app():
     """ Initializing the app """
     app = Flask(__name__)
@@ -63,19 +60,14 @@ def create_app():
     db.init_app(app)
     app.db = db
     Migrate(app, db)
+    CORS(app) # TODO: Don't allow all in production
 
     assets.init_app(app)
     login_manager.init_app(app)
 
     # Install views
-    from views.app import bp as app_bp
     from views.oauth import bp as oauth_bp
-    app.register_blueprint(app_bp)
     app.register_blueprint(oauth_bp)
-
-    # Install branding
-    brand = Blueprint('brand', __name__, static_folder='node_modules/gitplaylist-brand', static_url_path='/brand')
-    app.register_blueprint(brand)
 
     # Install API
     from views import account
