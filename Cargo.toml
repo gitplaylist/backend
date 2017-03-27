@@ -1,7 +1,15 @@
 [package]
-name = "GitPlaylist_backend"
+name = "git_playlist_backend"
 version = "0.1.0"
 authors = ["Tim <hello@timbest.net>"]
 
+[dependencies]
+hyper = "*"
+rustc-serialize = "0.3"
+valico = "1"
+
 [dependencies.iron]
 version = "*"
+
+[dependencies.rustless]
+git = "https://github.com/rustless/rustless"
